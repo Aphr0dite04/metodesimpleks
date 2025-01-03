@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hasil Simpleks</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #eef2f3; /* Ganti warna latar belakang */
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Font modern */
+        }
+        h1 {
+            background: linear-gradient(90deg, #007bff, #6610f2);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-size: 2.5rem;
+        text-align: center;
+        margin: 40px 0;
+        }
+        .container {
+            max-width: 800px;
+        padding: 30px;
+        background: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+        animation: fadeIn 1s ease-in-out; /* Animasi transisi */
+        }
+
+        @keyframes slideIn {
+        from {
+            opacity: 1;
+            transform: translateY(0);
+        }
+       }
+
+        .table {
+            margin-bottom: 30px;
+        border: 1px solid #dee2e6;
+        border-radius: 5px;
+        overflow: hidden;
+
+        }
+
+        .table th,
+    .table td {
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .step-card {
+        background-color: #f8f9fa;
+        border: 1px solid #e9ecef;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 20px;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    .step-card h2 {
+        color: #495057;
+    }
+
+    .list-group-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 1.1rem;
+    }
+    .list-group-item::before {
+        content: "\1F4C8"; /* Ikon */
+        font-size: 1.3rem;
+        color: #28a745;
+        margin-right: 10px;
+    }
+    .btn {
+        width: 100%;
+        background: linear-gradient(90deg, #007bff, #6610f2);
+        border: none;
+        color: white;
+        transition: all 0.3s ease-in-out;
+    }
+    .btn:hover {
+        background: linear-gradient(90deg, #6610f2, #007bff);
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Hasil Simpleks Maksimum</h1>
+
+        {% for step in steps %}
+            <h2 class="h5">{{ step.message }}</h2>
+
+            {% if step.pivot_info %}
+                <p><strong>Penjelasan Kolom Pivot:</strong> {{ step.pivot_info.pivot_col_info }}</p>
+                <p><strong>Penjelasan Baris Pivot:</strong> {{ step.pivot_info.pivot_row_info }}</p>
+            {% endif %}
+
+            {{ step.table|safe }}
+        {% endfor %}
+
+        <h2>Solusi Optimal:</h2>
+        <ul class="list-group">
+            <li class="list-group-item">A = {{ result.A }}</li>
+            <li class="list-group-item">B = {{ result.B }}</li>
+            <li class="list-group-item">Z = {{ result.Z }}</li>
+        </ul>
+
+        <a href="/" class="btn btn-primary mt-4">Kembali ke Beranda</a>
+    </div>
+</body>
+</html>
